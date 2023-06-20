@@ -1,6 +1,6 @@
 const std = @import("std");
 
-pub fn builtin_echo(args: [][]const u8) i32 {
+pub fn builtin_echo(args: []const []const u8) u32 {
     const stdout = std.io.getStdOut().writer();
     var i: usize = 1;
     while (i < args.len) : (i += 1) {

@@ -1,6 +1,6 @@
 const std = @import("std");
 
-pub fn tokenize(allocator: std.mem.Allocator, src: []u8) std.mem.Allocator.Error![][]u8 {
+pub fn tokenize(allocator: std.mem.Allocator, src: []u8) ![][]u8 {
     var result = std.ArrayList([]u8).init(allocator);
     defer result.deinit();
 
