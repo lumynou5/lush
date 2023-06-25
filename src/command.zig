@@ -5,7 +5,10 @@ pub fn execCommand(allocator: std.mem.Allocator, argv: []const []const u8) !u32 
     process.stdin_behavior = .Inherit;
     process.stdout_behavior = .Inherit;
     process.stderr_behavior = .Inherit;
-    const term = try process.spawnAndWait();
+    const term = process.spawnAndWait() catch |e| switch (e) {
+        error.FileNotFound => return 127,
+        else => return e,
+    };
     return switch (term) {
         .Exited => |x| @intCast(u32, x),
         .Signal => |x| x,
