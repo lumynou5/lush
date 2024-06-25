@@ -10,7 +10,7 @@ pub fn execCommand(allocator: std.mem.Allocator, argv: []const []const u8) !u32 
         else => return e,
     };
     return switch (term) {
-        .Exited => |x| @intCast(u32, x),
+        .Exited => |x| @intCast(x),
         .Signal => |x| x,
         .Stopped => |x| x,
         .Unknown => |x| x,

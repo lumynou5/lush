@@ -11,16 +11,12 @@ const builtin_data = [_]Builtin{
 };
 
 pub fn execBuiltin(args: []const []const u8) u32 {
-    const idx = if (std.sort.binarySearch(Builtin, .{ .name = args[0], .func = dummyBuiltin }, &builtin_data, {}, orderBuiltin)) |x| x else {
+    const idx = if (std.sort.binarySearch(Builtin, args[0], &builtin_data, {}, orderBuiltin)) |x| x else {
         return 127;
     };
     return builtin_data[idx].func(args);
 }
 
-fn orderBuiltin(_: void, lhs: Builtin, rhs: Builtin) std.math.Order {
-    return std.mem.order(u8, lhs.name, rhs.name);
-}
-
-fn dummyBuiltin(_: []const []const u8) u32 {
-    return 0;
+fn orderBuiltin(_: void, name: []const u8, mid_item: Builtin) std.math.Order {
+    return std.mem.order(u8, name, mid_item.name);
 }
