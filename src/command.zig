@@ -1,7 +1,7 @@
 const std = @import("std");
 
 pub fn execCommand(allocator: std.mem.Allocator, argv: []const []const u8) !u32 {
-    var process = std.ChildProcess.init(argv, allocator);
+    var process = std.process.Child.init(argv, allocator);
     process.stdin_behavior = .Inherit;
     process.stdout_behavior = .Inherit;
     process.stderr_behavior = .Inherit;
